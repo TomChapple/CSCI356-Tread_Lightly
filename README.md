@@ -17,5 +17,7 @@ In order for Git to work with  Visual Studio 2012, you'll need to go download th
 
 Remember, you can only make changes to this project while you have a GitHub account, so make sure you get one setup.
 
+Finally, the project current uses an environment variable called OGRE_HOME in order to detect where all of the libraries we are using are stored. Please make sure to set this up on your computer and restart before attempting to compile the project as it will fail otherwise. The OGRE_HOME environment variable need to point to the folder which contains the Ogre, Bullet and irrKlang subdirectories.
+
 ## Check this out!
 There's a Projects tab at the top when you are at the GitHub page which allows us to organise progress on this group assignment including being able to mark things as "In Progress" or "Get done quickly aaaaaa!".
