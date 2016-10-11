@@ -39,4 +39,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\ogre.cfg">
+      <Filter>Configuration Files</Filter>
+    </None>
+    <None Include="..\..\plugins.cfg">
+      <Filter>Configuration Files</Filter>
+    </None>
+    <None Include="..\..\plugins_d.cfg">
+      <Filter>Configuration Files</Filter>
+    </None>
+    <None Include="..\..\resources.cfg">
+      <Filter>Configuration Files</Filter>
+    </None>
+    <None Include="..\..\resources_d.cfg">
+      <Filter>Configuration Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

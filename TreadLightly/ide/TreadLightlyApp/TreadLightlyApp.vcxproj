@@ -23,6 +23,13 @@
     <ClInclude Include="..\..\include\app\TreadLightlyApp.h" />
     <ClInclude Include="..\..\include\stdafx.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\ogre.cfg" />
+    <None Include="..\..\plugins.cfg" />
+    <None Include="..\..\plugins_d.cfg" />
+    <None Include="..\..\resources.cfg" />
+    <None Include="..\..\resources_d.cfg" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{846EF36B-0A86-4CD6-B882-FCAFD1430E38}</ProjectGuid>
     <RootNamespace>TreadLightlyApp</RootNamespace>
