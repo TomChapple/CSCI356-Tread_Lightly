@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TreadLightlyApp", "TreadLightlyApp\TreadLightlyApp.vcxproj", "{846EF36B-0A86-4CD6-B882-FCAFD1430E38}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TreadLightlyApp", "ide\TreadLightlyApp\TreadLightlyApp.vcxproj", "{846EF36B-0A86-4CD6-B882-FCAFD1430E38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

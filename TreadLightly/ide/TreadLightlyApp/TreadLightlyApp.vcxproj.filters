@@ -18,41 +18,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ogre.cfg">
-      <Filter>Configuration Files</Filter>
-    </None>
-    <None Include="plugins.cfg">
-      <Filter>Configuration Files</Filter>
-    </None>
-    <None Include="plugins_d.cfg">
-      <Filter>Configuration Files</Filter>
-    </None>
-    <None Include="resources.cfg">
-      <Filter>Configuration Files</Filter>
-    </None>
-    <None Include="resources_d.cfg">
-      <Filter>Configuration Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BaseApplication.cpp">
+    <ClCompile Include="..\..\src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="..\..\src\app\BaseApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TreadLightlyApp.cpp">
+    <ClCompile Include="..\..\src\app\TreadLightlyApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseApplication.h">
+    <ClInclude Include="..\..\include\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="..\..\include\app\BaseApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TreadLightlyApp.h">
+    <ClInclude Include="..\..\include\app\TreadLightlyApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

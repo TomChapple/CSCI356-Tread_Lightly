@@ -10,6 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\app\BaseApplication.cpp" />
+    <ClCompile Include="..\..\src\app\TreadLightlyApp.cpp" />
+    <ClCompile Include="..\..\src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\app\BaseApplication.h" />
+    <ClInclude Include="..\..\include\app\TreadLightlyApp.h" />
+    <ClInclude Include="..\..\include\stdafx.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{846EF36B-0A86-4CD6-B882-FCAFD1430E38}</ProjectGuid>
     <RootNamespace>TreadLightlyApp</RootNamespace>
@@ -38,13 +51,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\Ogre\include\OGRE;$(OGRE_HOME)\Ogre\include\OGRE\Overlay;$(OGRE_HOME)\Ogre\include\OIS;$(OGRE_HOME)\Ogre\boost;$(OGRE_HOME)\Bullet\src;$(OGRE_HOME)\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)include\app;$(OGRE_HOME)\Ogre\include\OGRE;$(OGRE_HOME)\Ogre\include\OGRE\Overlay;$(OGRE_HOME)\Ogre\include\OIS;$(OGRE_HOME)\Ogre\boost;$(OGRE_HOME)\Bullet\src;$(OGRE_HOME)\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalOptions>/Zm300 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -61,7 +79,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\Ogre\include\OGRE;$(OGRE_HOME)\Ogre\include\OGRE\Overlay;$(OGRE_HOME)\Ogre\include\OIS;$(OGRE_HOME)\Ogre\boost;$(OGRE_HOME)\Bullet\src;$(OGRE_HOME)\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)include\app;$(OGRE_HOME)\Ogre\include\OGRE;$(OGRE_HOME)\Ogre\include\OGRE\Overlay;$(OGRE_HOME)\Ogre\include\OIS;$(OGRE_HOME)\Ogre\boost;$(OGRE_HOME)\Bullet\src;$(OGRE_HOME)\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,25 +90,6 @@
       <AdditionalDependencies>OgreMain.lib;OIS.lib;OgreOverlay.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="ogre.cfg" />
-    <None Include="plugins.cfg" />
-    <None Include="plugins_d.cfg" />
-    <None Include="resources.cfg" />
-    <None Include="resources_d.cfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BaseApplication.cpp" />
-    <ClCompile Include="TreadLightlyApp.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BaseApplication.h" />
-    <ClInclude Include="TreadLightlyApp.h" />
-    <ClInclude Include="stdafx.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
