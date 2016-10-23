@@ -1,6 +1,6 @@
 /*
 -----------------------------------------------------------------------------
-Filename:    OgreApplication.h
+Filename:    TreadLightlyApp.h
 -----------------------------------------------------------------------------
 
 This source file is part of the
@@ -14,19 +14,22 @@ This source file is part of the
       http://www.ogre3d.org/tikiwiki/
 -----------------------------------------------------------------------------
 */
-#ifndef __OgreApplication_h_
-#define __OgreApplication_h_
+#ifndef __TreadLightlyApp_h_
+#define __TreadLightlyApp_h_
 
 #include "BaseApplication.h"
 
-class OgreApplication : public BaseApplication
-{
-public:
-    OgreApplication(void);
-    virtual ~OgreApplication(void);
+namespace TreadLightly {
 
-protected:
-    virtual void createScene(void);
-};
+	class TreadLightlyApp : public BaseApplication
+	{
+	public:
+		TreadLightlyApp(void);
+		virtual ~TreadLightlyApp(void);
 
-#endif // #ifndef __OgreApplication_h_
+	protected:
+		virtual void createScene(void);
+	};
+}
+
+#endif // #ifndef __TreadLightlyApp_h_

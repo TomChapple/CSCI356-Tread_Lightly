@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\include\map\main.cpp" />
     <ClCompile Include="..\..\src\app\BaseApplication.cpp" />
     <ClCompile Include="..\..\src\app\TreadLightlyApp.cpp" />
     <ClCompile Include="..\..\src\stdafx.cpp">
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\app\BaseApplication.h" />
     <ClInclude Include="..\..\include\app\TreadLightlyApp.h" />
+    <ClInclude Include="..\..\include\map\MapData.h" />
     <ClInclude Include="..\..\include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>

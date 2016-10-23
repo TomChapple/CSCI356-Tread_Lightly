@@ -16,15 +16,27 @@
     <Filter Include="Configuration Files">
       <UniqueIdentifier>{ce48f035-6d58-472f-aebb-a284f59bcfdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\app">
+      <UniqueIdentifier>{03b5a12d-0597-47a0-a241-c4aae33013f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\map">
+      <UniqueIdentifier>{bb6fe48b-8533-4dd0-8968-6739dd24bf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{36903f93-85b9-4650-9178-28ceb242146b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\app\BaseApplication.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\app\TreadLightlyApp.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\map\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -33,10 +45,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\app\BaseApplication.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\app</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\app\TreadLightlyApp.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\map\MapData.h">
+      <Filter>Header Files\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
