@@ -1,7 +1,7 @@
 /*
 * TREAD LIGHTLY
 * Authors: Brett Latham (26/10/16)
-* File: cameraController.h
+* File: CameraController.h
 * Last Edited on: 26/10/16
 * Purpose: This file describes the movement of the camera in the scene.
 */
@@ -11,10 +11,9 @@
 
 namespace TreadLightly {
 	class CameraController {
-	private:
+	public:
 		CameraController(Ogre::Camera* cam);
 		virtual ~CameraController();
-	public:
 		virtual void Ogre::Camera* getCamera();
 		virtual void Ogre::SceneNode* getCameraNode();
 		virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
@@ -23,6 +22,7 @@ namespace TreadLightly {
 		virtual Ogre::Ray getSelectRay(){
 			return mCamera->getCameraToViewPortRay(mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
 		}
+	private:	
 		Ogre::Camera * mCamera;
 		Ogre::SceneNode * mCameraNode;
 
