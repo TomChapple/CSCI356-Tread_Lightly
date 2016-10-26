@@ -56,6 +56,12 @@
     <ClInclude Include="..\..\include\map\MapAssets.h">
       <Filter>Header Files\map</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\map\PathFinder.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\ogre.cfg">

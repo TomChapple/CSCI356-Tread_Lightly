@@ -142,7 +142,9 @@ namespace TreadLightly {
 			Cell GetCell(pos_type x, pos_type y) const;
 
 			template <typename Container>
-			void GetAdjacentCells(axis_t x, axis_t y, Container<Cell>& insert);
+			void GetAdjacentCells(axis_t x, axis_t y, Container<Cell>& insert) const;
+
+			float Heuristic(const Cell& from, const Cell& to) const;
 
 			void LoadFromFile(const std::string& filename);
 
