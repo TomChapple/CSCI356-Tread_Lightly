@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\include\app\BaseApplication.h" />
     <ClInclude Include="..\..\include\app\TreadLightlyApp.h" />
     <ClInclude Include="..\..\include\CameraController.h" />
+    <ClInclude Include="..\..\include\Map.h" />
     <ClInclude Include="..\..\include\map\MapAssets.h" />
     <ClInclude Include="..\..\include\map\MapData.h" />
     <ClInclude Include="..\..\include\map\PathFinder.h" />
