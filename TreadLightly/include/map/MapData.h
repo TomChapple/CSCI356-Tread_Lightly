@@ -9,13 +9,12 @@
 */
 
 #pragma once
-#include "stdafx.h"
 
 #include <string>
 
 namespace TreadLightly {
 
-	namespace Map {
+	namespace MapUtilities {
 
 		/** The type to be used to represent the grid dimensions
 		* and position in the Map.
@@ -81,6 +80,8 @@ namespace TreadLightly {
 			Traverse _Traverse;
 		};
 
+		/** Contains the abstract data represent a grid map
+		*/
 		class Data {
 
 		protected:

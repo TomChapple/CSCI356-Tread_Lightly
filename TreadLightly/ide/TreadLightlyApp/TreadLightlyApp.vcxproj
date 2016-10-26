@@ -22,6 +22,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\app\BaseApplication.h" />
     <ClInclude Include="..\..\include\app\TreadLightlyApp.h" />
+    <ClInclude Include="..\..\include\map\MapAssets.h" />
     <ClInclude Include="..\..\include\map\MapData.h" />
     <ClInclude Include="..\..\include\stdafx.h" />
   </ItemGroup>
