@@ -36,7 +36,7 @@
     <ClCompile Include="..\..\src\app\TreadLightlyApp.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\include\map\main.cpp">
+    <ClCompile Include="..\..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
