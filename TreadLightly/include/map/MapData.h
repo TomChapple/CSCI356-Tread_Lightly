@@ -72,8 +72,8 @@ namespace TreadLightly {
 			Cell& operator=(const Cell& right);
 
 		protected:
-			/* ~~~ Members ~~~ */
 
+			/* ~~~ Members ~~~ */
 			pos_type _X, _Y;
 			Zone _Zone;
 			Team _Team;
@@ -156,11 +156,15 @@ namespace TreadLightly {
 		protected:
 
 			/* ~~~ Members ~~~ */
-
 			bool _HasData;
+			char *_Buffer;
 			Cell *_Data;
 
 			pos_type _Width, _Height;
+
+			/* Internal Functions */
+			void _AllocateCellBuffer(size_t bytes);
+			void _DestroyCellBuffer();
 		};
 	}
 }

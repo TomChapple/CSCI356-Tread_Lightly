@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+#define IMAGE_ALLOC OGRE_IMAGE
+#ifdef IMAGE_ALLOC == OGRE_IMAGE
+#include <OgreImage.h>
+#endif
+
 #include "map/MapData.h"
 
 namespace TreadLightly {
@@ -139,19 +144,22 @@ namespace TreadLightly {
 		}
 
 		Data::Data():
-			_HasData(false), _Data(NULL), _Width(0), _Height(0) {
+			_HasData(false), _Buffer(NULL), _Data(NULL), _Width(0), _Height(0) {
 
 		}
 
 		Data::Data(const std::string& path):
-			_HasData(false), _Data(NULL), _Width(0), _Height(0) {
+			_HasData(false), _Buffer(NULL), _Data(NULL), _Width(0), _Height(0) {
 
 			LoadFromFile(path);
 		}
 
 		Data::~Data() {
-			if (_Data)
-				delete[] _Data;
+			/*
+			* Due to the hacky nature, need to destroy buffer in a specific
+			* way
+			*/
+			_DestroyCellBuffer();
 		}
 
 		pos_type Data::GetWidth() const {
@@ -266,10 +274,95 @@ namespace TreadLightly {
 
 		void Data::LoadFromFile(const std::string& filename) {
 			// Need to finalise how the file is to be loaded.
+
+			/*
+			* BIT ALLOCATION TABLE
+			* -----------------------------------
+			* RRRRRRRR GGGGGGGG BBBBBBBB AAAAAAAA
+			*          bbbbzzzz      ttt hhhhhhhh
+			* h (A1-8): Height Value (256 options, unused)
+			* t (B1-3): Team Value (eight options)
+			* z (G1-4): Zone Identifier (sixteen options)
+			* b (G5-8): Traversal Type (sixteen options)
+			*/
+			const Ogre::uint32 HEIGHT_MASK = 0x000000FF,
+				TEAM_MASK = 0x00000700,
+				ZONE_MASK = 0x000F0000,
+				TRAVERSE_MASK = 0x00F00000;
+			const int HEIGHT_SHIFT = 0,
+				TEAM_SHIFT = 8,
+				ZONE_SHIFT = 16,
+				TRAVERSE_SHIFT = 24;
+
+			/* Load Data in from image file according to above table */
+#ifdef IMAGE_ALLOC == OGRE_IMAGE
+			Ogre::Image HeightMap;
+			HeightMap.load(filename, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+			/* Create buffer according to dimensions of image */
+			Ogre::uint32 ImageHeight = HeightMap.getHeight(),
+				ImageWidth = HeightMap.getWidth(),
+				BufferSize = ImageHeight * ImageWidth;
+
+			/* Probably need the destruction of the buffer as its own subroutine */
+			//if (_Data)
+			//	delete[] _Data;
+
+			// DOING SOME HACKY ALLOCATION WITH NEW PLACEMENT
+			_AllocateCellBuffer(BufferSize);
+			for (Ogre::uint32 y = 0; y < HeightMap.getHeight(); y++) {
+				for (Ogre::uint32 x = 0; x < HeightMap.getWidth(); x++) {
+
+					/* Create enums according to bit fields */
+					Ogre::RGBA ColourValue = HeightMap.getColourAt(x, y, 0).getAsRGBA();
+
+					Cell::Zone Zone = static_cast<Cell::Zone>((ColourValue & ZONE_MASK) >> ZONE_SHIFT);
+					Cell::Team Team = static_cast<Cell::Team>((ColourValue & TEAM_MASK) >> TEAM_SHIFT);
+					Cell::Traverse Traverse = static_cast<Cell::Traverse>((ColourValue & TRAVERSE_MASK) >> TRAVERSE_SHIFT);
+
+					/* Create new instance of the Cell */
+					new (_Data + x + y * ImageWidth) Cell(x, y, Zone, Team, Traverse);
+				}
+			}
+#endif
 		}
 
 		bool Data::HasData() const {
 			return (_Data == NULL);
+		}
+
+		void Data::_AllocateCellBuffer(size_t bytes) {
+
+			// WATCH OUT, THERE'S SOME HACKY STUFF HERE! INVOLVES PLACEMENT NEW
+			// AND THE LIKE. NEEDS A SPECIAL DESTRUCTOR!
+
+			/* Before we create it, need to destroy the existing buffer */
+			_DestroyCellBuffer();
+
+			_Buffer = new char[sizeof(Cell) * bytes];
+			_Data = reinterpret_cast<Cell*>(_Buffer);
+		}
+
+		void Data::_DestroyCellBuffer() {
+			/*
+			* HACKY DESTRUCTION RIGHT HERE TO ENSURE THE DATA
+			* HAS BEEN DESTROYED PROPERLY FROM PLACEMENT NEW
+			*/
+			if (_Data) {
+				pos_type BufferSize = _Width * _Height;
+
+				/* Call the constructor for each object stored */
+				for (int i = 0; i < BufferSize; i++) {
+					_Data[i].~Cell();
+				}
+
+				/* Delete the existing char buffer */
+				delete[] _Buffer;
+
+				/* Set values to NULL */
+				_Data = NULL;
+				_Buffer = NULL;
+			}
 		}
 	}
 }
