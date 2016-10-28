@@ -25,9 +25,6 @@
     <Filter Include="Source Files\app">
       <UniqueIdentifier>{36903f93-85b9-4650-9178-28ceb242146b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\map">
-      <UniqueIdentifier>{1e362054-6acb-48ae-98de-c012a2c51c70}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\stdafx.cpp">
@@ -41,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapData.cpp">
-      <Filter>Source Files\map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
