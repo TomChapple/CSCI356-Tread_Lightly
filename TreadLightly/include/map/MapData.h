@@ -121,9 +121,6 @@ namespace TreadLightly {
 				/* ~~~ Members ~~~ */
 				Cell *_Ptr;
 				pos_type _Offset, _MaxOffset;
-
-				/* ~~~ Internal Functions ~~~*/
-				inline bool _ValidateIterator() const;
 			};
 
 			typedef iterator const_iterator;
