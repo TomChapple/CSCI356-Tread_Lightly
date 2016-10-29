@@ -28,6 +28,9 @@ namespace TreadLightly {
 			/* ~~~ Types / Typedefs ~~~ */
 			typedef std::map<Ogre::String, Ogre::SceneNode*>::iterator AccessIterator;
 
+			/* ~~~ Constants ~~~ */
+			static const Ogre::Real DEFAULT_GRID_SIZE = 10.0f;
+
 			/* ~~~ Constructors / Destructors ~~~ */
 			Assets(Ogre::SceneManager *mgr);
 			Assets(Ogre::SceneManager *mgr, const Data& mapData);
@@ -36,11 +39,13 @@ namespace TreadLightly {
 			/* ~~~ Interface Methods ~~~ */
 
 			void AddAssetSet(const Ogre::String& name, Ogre::SceneNode *node);
-			void CreateAssetSetFromMapData(const Ogre::String& name, const Data& mapData);
+			void CreateAssetSetFromMapData(const Ogre::String& name, const Data& mapData,
+				const Ogre::Real& gridSize = DEFAULT_GRID_SIZE);
+
+			Ogre::Real GetGridSize() const;
 
 			Ogre::SceneNode *GetAssetSceneNode(const Ogre::String& name);
 			Ogre::SceneNode *GetCurrentAssetSceneNode();
-
 
 			void ChangeCurrentAssetSceneNode(const Ogre::String& name);
 			void ChangeCurrentAssetSceneNode(AccessIterator it);
@@ -55,6 +60,7 @@ namespace TreadLightly {
 			Ogre::SceneManager *_SceneManager;
 			std::map<Ogre::String, Ogre::SceneNode*> _AssetSets;
 			Ogre::String _CurrentAssetName;
+			Ogre::Real _GridSize;
 
 		};
 	}
