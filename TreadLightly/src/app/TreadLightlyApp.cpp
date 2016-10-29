@@ -17,6 +17,9 @@ This source file is part of the
 #include "stdafx.h"
 #include "TreadLightlyApp.h"
 
+#include <OgreString.h>
+#include <OgreStringConverter.h>
+
 #include "map/MapData.h"
 
 namespace TreadLightly {
@@ -50,8 +53,10 @@ namespace TreadLightly {
 		light->setPosition(20.0f, 80.0f, 50.0f);
 
 		/* Create the MapData and test iterator */
-		MapUtilities::Data TestData("testmap.bmp");
-		for (auto it = TestData.begin(); it != TestData.end(); it++) {
+		Ogre::String TestName = "testmap.bmp";
+		size_t Temp = sizeof(MapUtilities::Cell);
+		MapUtilities::Data TestData(TestName);
+		for (MapUtilities::Data::iterator it = TestData.begin(); it != TestData.end(); it++) {
 			Ogre::String Message;
 			Message += Ogre::StringConverter::toString(it->GetX()) +
 				"," + Ogre::StringConverter::toString(it->GetY()) + ":";

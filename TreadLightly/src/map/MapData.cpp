@@ -90,46 +90,34 @@ namespace TreadLightly {
 
 		Cell Data::iterator::operator*() const {
 			if (_ValidateIterator())
-				return *_Ptr;
+				return **(_Ptr+_Offset);
 			else throw std::out_of_range("MapData iterator cannot be dereferenced");
 		}
 
 		Cell *Data::iterator::operator->() const {
 			if (_ValidateIterator())
-				return _Ptr;
+				return *(_Ptr+_Offset);
 			else throw std::out_of_range("MapData iterator cannot be dereferenced");
 		}
 
 		Data::iterator& Data::iterator::operator++() {
-			if (_ValidateIterator()) {
-				++_Ptr;
-			}
 			++_Offset;
 			return *this;
 		}
 
 		Data::iterator Data::iterator::operator++(int) {
 			iterator ReturnIt(*this);
-			if (_ValidateIterator()) {
-				++_Ptr;
-			}
 			++_Offset;
 			return ReturnIt;
 		}
 
 		Data::iterator& Data::iterator::operator--() {
-			if (_ValidateIterator()) {
-				--_Ptr;
-			}
 			--_Offset;
 			return *this;
 		}
 
 		Data::iterator Data::iterator::operator--(int) {
 			iterator ReturnIt(*this);
-			if (_ValidateIterator()) {
-				--_Ptr;
-			}
 			--_Offset;
 			return ReturnIt;
 		}
@@ -148,21 +136,17 @@ namespace TreadLightly {
 		}
 
 		Data::Data():
-			_HasData(false), _Buffer(NULL), _Data(NULL), _Width(0), _Height(0) {
+			_HasData(false), _Data(NULL), _Width(0), _Height(0) {
 
 		}
 
 		Data::Data(const std::string& path):
-			_HasData(false), _Buffer(NULL), _Data(NULL), _Width(0), _Height(0) {
+			_HasData(false), _Data(NULL), _Width(0), _Height(0) {
 
 			LoadFromFile(path);
 		}
 
 		Data::~Data() {
-			/*
-			* Due to the hacky nature, need to destroy buffer in a specific
-			* way
-			*/
 			_DestroyCellBuffer();
 		}
 
@@ -193,7 +177,7 @@ namespace TreadLightly {
 			iterator ReturnIt;
 			ReturnIt._MaxOffset = _Width * _Height;
 			ReturnIt._Offset = ReturnIt._MaxOffset;
-			ReturnIt._Ptr = _Data + ReturnIt._Offset - 1;
+			ReturnIt._Ptr = _Data;
 
 			return ReturnIt;
 		}
@@ -202,7 +186,7 @@ namespace TreadLightly {
 			if (!HasData())
 				throw std::runtime_error("No data in MapData");
 
-			return *(_Data + x + y * _Width);
+			return **(_Data + x + y * _Width);
 		}
 
 		void Data::GetAdjacentCells(pos_type x, pos_type y, std::vector<Cell>& store) const {
@@ -210,7 +194,7 @@ namespace TreadLightly {
 			pos_type WidthOffset = 1,
 				HeightOffset = _Width;
 
-			Cell *CurrCell = _Data + x + y * HeightOffset;
+			Cell **CurrCell = _Data + x + y * HeightOffset;
 
 			/* Check directly adjacent cells */
 			bool TopEdge = (y > 0), BotEdge = (y < _Height),
@@ -220,53 +204,53 @@ namespace TreadLightly {
 
 			// Left
 			CurrCell -= WidthOffset;
-			if (LeftEdge && CurrCell->IsTraversable()) {
+			if (LeftEdge && (*CurrCell)->IsTraversable()) {
 				LeftBlocked = false;
-				store.insert(store.begin(), *CurrCell);
+				store.insert(store.begin(), **CurrCell);
 			}
 
 			// Right
 			CurrCell += 2 * WidthOffset;
-			if (RightEdge && CurrCell->IsTraversable()) {
+			if (RightEdge && (*CurrCell)->IsTraversable()) {
 				RightBlocked = false;
-				store.insert(store.begin(), *CurrCell);
+				store.insert(store.begin(), **CurrCell);
 			}
 
 			// Bottom
 			CurrCell += HeightOffset - WidthOffset;
-			if (BotEdge && CurrCell->IsTraversable()) {
+			if (BotEdge && (*CurrCell)->IsTraversable()) {
 				BotBlocked = false;
-				store.insert(store.begin(), *CurrCell);
+				store.insert(store.begin(), **CurrCell);
 			}
 
 			// Top
 			CurrCell -= 2 * HeightOffset;
-			if (TopEdge && CurrCell->IsTraversable()) {
+			if (TopEdge && (*CurrCell)->IsTraversable()) {
 				TopBlocked = false;
-				store.insert(store.begin(), *CurrCell);
+				store.insert(store.begin(), **CurrCell);
 			}
 
 			/* Now do diagonals based on previous results */
 
 			// Top-Left
 			CurrCell -= WidthOffset;
-			if (!TopBlocked && !LeftBlocked && CurrCell->IsTraversable())
-				store.insert(store.begin(), *CurrCell);
+			if (!TopBlocked && !LeftBlocked && (*CurrCell)->IsTraversable())
+				store.insert(store.begin(), **CurrCell);
 
 			// Top-Right
 			CurrCell += 2 * WidthOffset;
-			if (!TopBlocked && !RightBlocked && CurrCell->IsTraversable())
-				store.insert(store.begin(), *CurrCell);
+			if (!TopBlocked && !RightBlocked && (*CurrCell)->IsTraversable())
+				store.insert(store.begin(), **CurrCell);
 
 			// Bottom-Right
 			CurrCell += 2 * HeightOffset;
-			if (!BotBlocked && !RightBlocked && CurrCell->IsTraversable())
-				store.insert(store.begin(), *CurrCell);
+			if (!BotBlocked && !RightBlocked && (*CurrCell)->IsTraversable())
+				store.insert(store.begin(), **CurrCell);
 
 			// Bottom-Left
 			CurrCell -= 2 * WidthOffset;
-			if (!BotBlocked && !LeftBlocked && CurrCell->IsTraversable())
-				store.insert(store.begin(), *CurrCell);
+			if (!BotBlocked && !LeftBlocked && (*CurrCell)->IsTraversable())
+				store.insert(store.begin(), **CurrCell);
 
 		}
 
@@ -307,7 +291,6 @@ namespace TreadLightly {
 				ImageWidth = HeightMap.getWidth(),
 				BufferSize = _Height * _Width;
 
-			// DOING SOME HACKY ALLOCATION WITH NEW PLACEMENT
 			_AllocateCellBuffer(BufferSize);
 			for (Ogre::uint32 y = 0; y < HeightMap.getHeight(); y++) {
 				for (Ogre::uint32 x = 0; x < HeightMap.getWidth(); x++) {
@@ -320,7 +303,7 @@ namespace TreadLightly {
 					Cell::Traverse Traverse = static_cast<Cell::Traverse>((ColourValue & TRAVERSE_MASK) >> TRAVERSE_SHIFT);
 
 					/* Create new instance of the Cell */
-					new (_Data + x + y * ImageWidth) Cell(x, y, Zone, Team, Traverse);
+					_Data[x + y * ImageWidth] = new Cell(x, y, Zone, Team, Traverse);
 				}
 			}
 
@@ -333,37 +316,20 @@ namespace TreadLightly {
 			return (_Data != NULL);
 		}
 
-		void Data::_AllocateCellBuffer(size_t bytes) {
-
-			// WATCH OUT, THERE'S SOME HACKY STUFF HERE! INVOLVES PLACEMENT NEW
-			// AND THE LIKE. NEEDS A SPECIAL DESTRUCTOR!
-
-			/* Before we create it, need to destroy the existing buffer */
+		void Data::_AllocateCellBuffer(size_t NoOfCells) {
 			_DestroyCellBuffer();
-
-			_Buffer = new char[sizeof(Cell) * bytes];
-			_Data = reinterpret_cast<Cell*>(_Buffer);
+			_Data = new Cell*[NoOfCells];
 		}
 
 		void Data::_DestroyCellBuffer() {
-			/*
-			* HACKY DESTRUCTION RIGHT HERE TO ENSURE THE DATA
-			* HAS BEEN DESTROYED PROPERLY FROM PLACEMENT NEW
-			*/
 			if (_Data) {
-				pos_type BufferSize = _Width * _Height;
-
-				/* Call the constructor for each object stored */
+				size_t BufferSize = _Width * _Height;
 				for (int i = 0; i < BufferSize; i++) {
-					_Data[i].~Cell();
+					delete _Data[i];
 				}
+				delete[] _Data;
 
-				/* Delete the existing char buffer */
-				delete[] _Buffer;
-
-				/* Set values to NULL */
 				_Data = NULL;
-				_Buffer = NULL;
 			}
 		}
 	}

@@ -120,7 +120,7 @@ namespace TreadLightly {
 			protected:
 
 				/* ~~~ Members ~~~ */
-				Cell *_Ptr;
+				Cell **_Ptr;
 				pos_type _Offset, _MaxOffset;
 
 				/* ~~~ Internal Functions ~~~*/
@@ -157,8 +157,7 @@ namespace TreadLightly {
 
 			/* ~~~ Members ~~~ */
 			bool _HasData;
-			char *_Buffer;
-			Cell *_Data;
+			Cell **_Data;
 
 			pos_type _Width, _Height;
 
