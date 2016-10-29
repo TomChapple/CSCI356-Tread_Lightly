@@ -2,7 +2,7 @@
 * TREAD LIGHTLY
 * Authors: Tom Chapple (23/10/16)
 * File: MapData.h
-* Last Edited on: 23/10/16
+* Last Edited on: 29/10/16
 * Purpose: This file describes the abstract, grid-based map
 * data loaded in from a height map. As such, it needs an
 * intermediary to convert between this and the game world.
@@ -69,8 +69,9 @@ namespace TreadLightly {
 			bool IsTraversable() const;
 
 			/* ~~~ Operators ~~~ */
-
 			Cell& operator=(const Cell& right);
+			bool operator==(const Cell& right) const;
+			bool operator!=(const Cell& right) const;
 
 		protected:
 

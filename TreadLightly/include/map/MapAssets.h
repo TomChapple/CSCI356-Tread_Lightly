@@ -1,8 +1,8 @@
 /*
 * TREAD LIGHTLY
-* Authors: Tom Chapple (26/10)
+* Authors: Tom Chapple (29/10)
 * File: MapAssets.h
-* Last modified on: 26/10/16
+* Last modified on: 29/10/16
 * Purpose: Describes the assets used to display the map
 * which can be generated from a Data class or loaded
 * in separately.

@@ -45,6 +45,9 @@
     <ClCompile Include="..\..\src\map\MapData.cpp">
       <Filter>Source Files\map</Filter>
     </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\stdafx.h">

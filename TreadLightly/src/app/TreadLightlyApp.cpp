@@ -21,6 +21,7 @@ This source file is part of the
 #include <OgreStringConverter.h>
 
 #include "map/MapData.h"
+#include "map/PathFinder.h"
 
 namespace TreadLightly {
 
@@ -53,7 +54,7 @@ namespace TreadLightly {
 		light->setPosition(20.0f, 80.0f, 50.0f);
 
 		/* Create the MapData and test iterator */
-		Ogre::String TestName = "testmap.bmp";
+		Ogre::String TestName = "testmap.png";
 		size_t Temp = sizeof(MapUtilities::Cell);
 		MapUtilities::Data TestData(TestName);
 		for (MapUtilities::Data::iterator it = TestData.begin(); it != TestData.end(); it++) {
@@ -66,6 +67,15 @@ namespace TreadLightly {
 			Ogre::LogManager::getSingletonPtr()->logMessage(Message);
 		}
 
+		/* Test out the PathFinder */
+		MapUtilities::PathFinder PF(TestData);
+		std::vector<MapUtilities::Cell> PathResults;
+		if (PF.FindPath(0, 14, 22, 7, PathResults)) {
+			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Found Path!"));
+		}
+		else {
+			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Could not find path..."));
+		}
 	}
 
 }

@@ -1,3 +1,11 @@
+/*
+* TREAD LIGHTLY
+* Authors: Tom Chapple (29/10)
+* File: MapData.cpp
+* Last modified on: 29/10/16
+* Purpose: Implements the loading and abstract representation
+* of a grid-like battlefield.
+*/
 #include "stdafx.h"
 
 #include <cmath>
@@ -28,16 +36,6 @@ namespace TreadLightly {
 
 		}
 
-		Cell& Cell::operator=(const Cell& right) {
-			_X = right._X;
-			_Y = right._Y;
-			_Zone = right._Zone;
-			_Team = right._Team;
-			_Traverse = right._Traverse;
-
-			return *this;
-		}
-
 		pos_type Cell::GetX() const {
 			return _X;
 		}
@@ -64,6 +62,32 @@ namespace TreadLightly {
 
 		bool Cell::IsTraversable() const {
 			return _Traverse == TRAVERSE_FREE;
+		}
+
+		Cell& Cell::operator=(const Cell& right) {
+			_X = right._X;
+			_Y = right._Y;
+			_Zone = right._Zone;
+			_Team = right._Team;
+			_Traverse = right._Traverse;
+
+			return *this;
+		}
+
+		bool Cell::operator==(const Cell& right) const {
+			return (_X == right._X) &&
+				(_Y == right._Y) &&
+				(_Zone == right._Zone) &&
+				(_Team == right._Team) &&
+				(_Traverse == right._Traverse);
+		}
+
+		bool Cell::operator!=(const Cell& right) const {
+			return (_X != right._X) ||
+				(_Y != right._Y) ||
+				(_Zone != right._Zone) ||
+				(_Team != right._Team) ||
+				(_Traverse != right._Traverse);
 		}
 
 		Data::iterator::iterator():
@@ -197,8 +221,8 @@ namespace TreadLightly {
 			Cell **CurrCell = _Data + x + y * HeightOffset;
 
 			/* Check directly adjacent cells */
-			bool TopEdge = (y > 0), BotEdge = (y < _Height),
-				LeftEdge = (x > 0), RightEdge = (x < _Width);
+			bool TopEdge = (y > 0), BotEdge = (y < _Height - 1),
+				LeftEdge = (x > 0), RightEdge = (x < _Width - 1);
 			bool TopBlocked = true, BotBlocked = true,
 				LeftBlocked = true, RightBlocked = true;
 
