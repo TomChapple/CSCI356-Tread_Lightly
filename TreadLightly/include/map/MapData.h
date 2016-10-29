@@ -11,6 +11,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace TreadLightly {
 
@@ -144,8 +145,7 @@ namespace TreadLightly {
 
 			Cell GetCell(pos_type x, pos_type y) const;
 
-			template <typename Container>
-			void GetAdjacentCells(axis_t x, axis_t y, Container<Cell>& insert) const;
+			void GetAdjacentCells(pos_type x, pos_type y, std::vector<Cell>& store) const;
 
 			float Heuristic(const Cell& from, const Cell& to) const;
 

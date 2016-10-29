@@ -34,6 +34,8 @@ namespace TreadLightly {
 			_Zone = right._Zone;
 			_Team = right._Team;
 			_Traverse = right._Traverse;
+
+			return *this;
 		}
 
 		pos_type Cell::GetX() const {
@@ -82,6 +84,8 @@ namespace TreadLightly {
 			_Ptr = right._Ptr;
 			_Offset = right._Offset;
 			_MaxOffset = right._MaxOffset;
+
+			return *this;
 		}
 
 		Cell Data::iterator::operator*() const {
@@ -139,7 +143,7 @@ namespace TreadLightly {
 			return (_Ptr == right._Ptr) && (_Offset == right._Offset);
 		}
 
-		bool Data::iterator::operator==(const iterator& right) const {
+		bool Data::iterator::operator!=(const iterator& right) const {
 			return (_Ptr != right._Ptr) || (_Offset != right._Offset);
 		}
 
@@ -201,8 +205,7 @@ namespace TreadLightly {
 			return *(_Data + x + y * _Width);
 		}
 
-		template <typename Container>
-		void Data::GetAdjacentCells(axis_t x, axis_t y, Container<Cell>& store) const {
+		void Data::GetAdjacentCells(pos_type x, pos_type y, std::vector<Cell>& store) const {
 
 			pos_type WidthOffset = 1,
 				HeightOffset = _Width;
@@ -292,7 +295,7 @@ namespace TreadLightly {
 			const int HEIGHT_SHIFT = 0,
 				TEAM_SHIFT = 8,
 				ZONE_SHIFT = 16,
-				TRAVERSE_SHIFT = 24;
+				TRAVERSE_SHIFT = 20;
 
 			/* Load Data in from image file according to above table */
 #ifdef IMAGE_ALLOC == OGRE_IMAGE
@@ -302,11 +305,7 @@ namespace TreadLightly {
 			/* Create buffer according to dimensions of image */
 			Ogre::uint32 ImageHeight = HeightMap.getHeight(),
 				ImageWidth = HeightMap.getWidth(),
-				BufferSize = ImageHeight * ImageWidth;
-
-			/* Probably need the destruction of the buffer as its own subroutine */
-			//if (_Data)
-			//	delete[] _Data;
+				BufferSize = _Height * _Width;
 
 			// DOING SOME HACKY ALLOCATION WITH NEW PLACEMENT
 			_AllocateCellBuffer(BufferSize);
@@ -324,11 +323,14 @@ namespace TreadLightly {
 					new (_Data + x + y * ImageWidth) Cell(x, y, Zone, Team, Traverse);
 				}
 			}
+
+			_Width = ImageWidth;
+			_Height = ImageHeight;
 #endif
 		}
 
 		bool Data::HasData() const {
-			return (_Data == NULL);
+			return (_Data != NULL);
 		}
 
 		void Data::_AllocateCellBuffer(size_t bytes) {

@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TreadLightlyApp", "ide\TreadLightlyApp\TreadLightlyApp.vcxproj", "{846EF36B-0A86-4CD6-B882-FCAFD1430E38}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapDataTest", "ide\UnitTest\MapDataTest\MapDataTest.vcxproj", "{FE3EA30A-F763-403D-B089-0B38510BA926}"
+	ProjectSection(ProjectDependencies) = postProject
+		{846EF36B-0A86-4CD6-B882-FCAFD1430E38} = {846EF36B-0A86-4CD6-B882-FCAFD1430E38}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +18,10 @@ Global
 		{846EF36B-0A86-4CD6-B882-FCAFD1430E38}.Debug|Win32.Build.0 = Debug|Win32
 		{846EF36B-0A86-4CD6-B882-FCAFD1430E38}.Release|Win32.ActiveCfg = Release|Win32
 		{846EF36B-0A86-4CD6-B882-FCAFD1430E38}.Release|Win32.Build.0 = Release|Win32
+		{FE3EA30A-F763-403D-B089-0B38510BA926}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FE3EA30A-F763-403D-B089-0B38510BA926}.Debug|Win32.Build.0 = Debug|Win32
+		{FE3EA30A-F763-403D-B089-0B38510BA926}.Release|Win32.ActiveCfg = Release|Win32
+		{FE3EA30A-F763-403D-B089-0B38510BA926}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
