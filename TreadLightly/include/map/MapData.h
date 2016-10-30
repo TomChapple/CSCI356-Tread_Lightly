@@ -2,7 +2,7 @@
 * TREAD LIGHTLY
 * Authors: Tom Chapple (23/10/16)
 * File: MapData.h
-* Last Edited on: 23/10/16
+* Last Edited on: 29/10/16
 * Purpose: This file describes the abstract, grid-based map
 * data loaded in from a height map. As such, it needs an
 * intermediary to convert between this and the game world.
@@ -11,6 +11,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace TreadLightly {
 
@@ -68,12 +69,13 @@ namespace TreadLightly {
 			bool IsTraversable() const;
 
 			/* ~~~ Operators ~~~ */
-
 			Cell& operator=(const Cell& right);
+			bool operator==(const Cell& right) const;
+			bool operator!=(const Cell& right) const;
 
 		protected:
-			/* ~~~ Members ~~~ */
 
+			/* ~~~ Members ~~~ */
 			pos_type _X, _Y;
 			Zone _Zone;
 			Team _Team;
@@ -119,8 +121,11 @@ namespace TreadLightly {
 			protected:
 
 				/* ~~~ Members ~~~ */
-				Cell *_Ptr;
+				Cell **_Ptr;
 				pos_type _Offset, _MaxOffset;
+
+				/* ~~~ Internal Functions ~~~*/
+				inline bool _ValidateIterator() const;
 			};
 
 			typedef iterator const_iterator;
@@ -141,8 +146,7 @@ namespace TreadLightly {
 
 			Cell GetCell(pos_type x, pos_type y) const;
 
-			template <typename Container>
-			void GetAdjacentCells(axis_t x, axis_t y, Container<Cell>& insert) const;
+			void GetAdjacentCells(pos_type x, pos_type y, std::vector<Cell>& store) const;
 
 			float Heuristic(const Cell& from, const Cell& to) const;
 
@@ -153,11 +157,14 @@ namespace TreadLightly {
 		protected:
 
 			/* ~~~ Members ~~~ */
-
 			bool _HasData;
-			Cell *_Data;
+			Cell **_Data;
 
 			pos_type _Width, _Height;
+
+			/* Internal Functions */
+			void _AllocateCellBuffer(size_t bytes);
+			void _DestroyCellBuffer();
 		};
 	}
 }

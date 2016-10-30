@@ -1,6 +1,7 @@
 #pragma once
 
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 #include <OgreString.h>
 #include <OgreVector3.h>
 
@@ -14,12 +15,13 @@ namespace TreadLightly {
 
 	public:
 
-		/* ~~~ Types / Typedefs ~~~ */
-		typedef std::pair<MapUtilities::pos_type, MapUtilities::pos_type> GridPosition;
+		/* ~~~ Constants ~~~ */
+		static const Ogre::Real DEFAULT_GRID_SIZE;
 
 		/* ~~~ Constructors / Destructors ~~~ */
 
-		Map(Ogre::SceneManager *mgr, const Ogre::String& mapFile);
+		Map(Ogre::SceneManager *mgr, Ogre::SceneNode *parent, const Ogre::String& mapFile,
+			const Ogre::Real& gridSize = DEFAULT_GRID_SIZE);
 		~Map();
 
 		/* ~~~ Interface Methods ~~~ */
@@ -28,19 +30,24 @@ namespace TreadLightly {
 		bool HasAsset(const Ogre::String& name) const;
 		void AddAsset(const Ogre::String& name, Ogre::SceneNode *node);
 
-		void FindPath(const Ogre::Vector3& from,
+		bool FindPath(const Ogre::Vector3& from,
 			const Ogre::Vector3& to,
-			std::vector<Ogre::Vector3>& insert) const;
+			std::vector<Ogre::Vector3>& store) const;
+
+		/* ~~~ Accessors / Mutators ~~~ */
+		Ogre::Real GetGridSize() const;
 
 
 	protected:
 
 		/* ~~~ Members ~~~ */
-		MapUtilities::Assets *_Assets;
 		MapUtilities::Data *_Data;
+		MapUtilities::Assets *_Assets;
 		MapUtilities::PathFinder *_PathFinder;
+		Ogre::Real _GridSize;
 
 		/* ~~~ Internal Functions ~~~ */
+		typedef std::pair<MapUtilities::pos_type, MapUtilities::pos_type> GridPosition;
 		Ogre::Vector3 _GridToOgrePosition(const GridPosition& pos) const;
 		GridPosition _OgreToGridPosition(const Ogre::Vector3& pos) const;
 	};
