@@ -19,6 +19,7 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "Map.h"
+#include "CameraController.h"
 
 namespace TreadLightly {
 
@@ -27,12 +28,16 @@ namespace TreadLightly {
 	public:
 		TreadLightlyApp(void);
 		virtual ~TreadLightlyApp(void);
+		bool setup();
+		bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+		bool mouseMoved(const OIS::MouseEvent &arg);
 
 	protected:
 		virtual void createScene(void);
-
+		
 		/* ~~~ Members ~~~ */
 		Map *_Map;
+		CameraController * _CamControl;
 	};
 }
 

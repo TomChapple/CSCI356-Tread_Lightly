@@ -29,18 +29,37 @@ namespace TreadLightly {
 	TreadLightlyApp::TreadLightlyApp(void)
 	{
 		_Map = NULL;
+		_CamControl = NULL;
 	}
 	//-------------------------------------------------------------------------------------
 	TreadLightlyApp::~TreadLightlyApp(void)
 	{
 		if (!_Map)
 			delete _Map;
+		if (!_CamControl)
+			delete _CamControl;
+	}
+	//-------------------------------------------------------------------------------------
+	bool TreadLightlyApp::setup() {
+		BaseApplication::setup();
+
+		mTrayMgr->showCursor();
+
+		//Position mouse in middle of screen so it doesn't start moving camera
+		OIS::MouseState &mutableMouseState = const_cast<OIS::MouseState &>(mMouse->getMouseState());
+		mutableMouseState.X.abs = mWindow->getWidth()/2;
+		mutableMouseState.Y.abs = mWindow->getHeight()/2;
+
+		return true;
 	}
 
 	//-------------------------------------------------------------------------------------
 	void TreadLightlyApp::createScene(void)
 	{
 		// create your scene here :)
+
+		// Set up camera
+		_CamControl = new CameraController(mCamera, mSceneMgr, mWindow, mMouse);
 
 		// Set the scene's ambient light
 		mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
@@ -99,6 +118,32 @@ namespace TreadLightly {
 
 		///* Test out of assets */
 		//MapUtilities::Assets *TestAssets = new MapUtilities::Assets(mSceneMgr, mSceneMgr->getRootSceneNode(), TestData);
+	}
+
+	
+	bool TreadLightlyApp::frameRenderingQueued(const Ogre::FrameEvent& evt) {
+		
+		if(mWindow->isClosed())
+			return false;
+ 
+		if(mShutDown)
+			return false;
+
+		mKeyboard->capture();
+		mMouse->capture();
+
+		mTrayMgr->frameRenderingQueued(evt);
+		_CamControl->frameRenderingQueued(evt, mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
+
+		return true;
+	}
+
+	bool TreadLightlyApp::mouseMoved( const OIS::MouseEvent &arg )
+	{
+		
+		if (mTrayMgr->injectMouseMove(arg)) return true;
+
+		return true;
 	}
 
 }
