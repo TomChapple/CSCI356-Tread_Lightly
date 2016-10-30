@@ -22,6 +22,7 @@ This source file is part of the
 
 #include "map/MapData.h"
 #include "map/PathFinder.h"
+#include "map/MapAssets.h"
 
 namespace TreadLightly {
 
@@ -76,6 +77,9 @@ namespace TreadLightly {
 		else {
 			Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Could not find path..."));
 		}
+
+		/* Test out of assets */
+		MapUtilities::Assets *TestAssets = new MapUtilities::Assets(mSceneMgr, mSceneMgr->getRootSceneNode(), TestData);
 	}
 
 }

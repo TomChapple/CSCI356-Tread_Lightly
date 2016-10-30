@@ -1,6 +1,7 @@
 #pragma once
 
 #include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
 #include <OgreString.h>
 #include <OgreVector3.h>
 
@@ -15,11 +16,11 @@ namespace TreadLightly {
 	public:
 
 		/* ~~~ Types / Typedefs ~~~ */
-		typedef std::pair<MapUtilities::pos_type, MapUtilities::pos_type> GridPosition;
+		
 
 		/* ~~~ Constructors / Destructors ~~~ */
 
-		Map(Ogre::SceneManager *mgr, const Ogre::String& mapFile);
+		Map(Ogre::SceneManager *mgr, Ogre::SceneNode *parent, const Ogre::String& mapFile);
 		~Map();
 
 		/* ~~~ Interface Methods ~~~ */
@@ -36,11 +37,12 @@ namespace TreadLightly {
 	protected:
 
 		/* ~~~ Members ~~~ */
-		MapUtilities::Assets *_Assets;
 		MapUtilities::Data *_Data;
+		MapUtilities::Assets *_Assets;
 		MapUtilities::PathFinder *_PathFinder;
 
 		/* ~~~ Internal Functions ~~~ */
+		typedef std::pair<MapUtilities::pos_type, MapUtilities::pos_type> GridPosition;
 		Ogre::Vector3 _GridToOgrePosition(const GridPosition& pos) const;
 		GridPosition _OgreToGridPosition(const Ogre::Vector3& pos) const;
 	};

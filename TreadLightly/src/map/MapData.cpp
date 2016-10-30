@@ -313,11 +313,11 @@ namespace TreadLightly {
 			/* Create buffer according to dimensions of image */
 			Ogre::uint32 ImageHeight = HeightMap.getHeight(),
 				ImageWidth = HeightMap.getWidth(),
-				BufferSize = _Height * _Width;
+				BufferSize = ImageHeight * ImageWidth;
 
 			_AllocateCellBuffer(BufferSize);
-			for (Ogre::uint32 y = 0; y < HeightMap.getHeight(); y++) {
-				for (Ogre::uint32 x = 0; x < HeightMap.getWidth(); x++) {
+			for (Ogre::uint32 y = 0; y < ImageHeight; y++) {
+				for (Ogre::uint32 x = 0; x < ImageWidth; x++) {
 
 					/* Create enums according to bit fields */
 					Ogre::RGBA ColourValue = HeightMap.getColourAt(x, y, 0).getAsRGBA();
