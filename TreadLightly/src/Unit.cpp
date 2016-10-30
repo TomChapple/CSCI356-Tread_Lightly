@@ -76,6 +76,8 @@ namespace TreadLightly {
 		bool FindResult = _Map->FindPath(_Node->getPosition(), pos, FoundPath);
 		if (FindResult) {
 			_FollowPath.insert(_FollowPath.begin(), FoundPath.begin(), FoundPath.end());
+			_CurrDest = _FollowPath.front();
+			_FollowPath.erase(_FollowPath.begin());
 			_ReachedDestination = false;
 		}
 	}

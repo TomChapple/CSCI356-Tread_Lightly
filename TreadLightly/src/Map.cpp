@@ -52,15 +52,22 @@ namespace TreadLightly {
 
 		/* Transfer into Ogre::Vector3s */
 		for (Cell& cell : CellPath) {
-			store.insert(store.begin(), _GridToOgrePosition(cell.GetPoint()));
+			store.push_back(_GridToOgrePosition(cell.GetPoint()));
 		}
 
 		return true;
 	}
 
 	Ogre::Vector3 Map::GetRandomPosition() const {
+		GridPosition TryPosition;
 
-		return Ogre::Vector3::ZERO;
+		do {
+			TryPosition.first = rand() % _Data->GetWidth();
+			TryPosition.second = rand() % _Data->GetHeight();
+		} while (!_Data->GetCell(TryPosition.first, TryPosition.second).IsTraversable());
+
+
+		return _GridToOgrePosition(TryPosition);
 	}
 
 	Ogre::Real Map::GetGridSize() const {
