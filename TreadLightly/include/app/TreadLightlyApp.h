@@ -18,6 +18,7 @@ This source file is part of the
 #define __TreadLightlyApp_h_
 
 #include "BaseApplication.h"
+#include "Map.h"
 
 namespace TreadLightly {
 
@@ -29,6 +30,9 @@ namespace TreadLightly {
 
 	protected:
 		virtual void createScene(void);
+
+		/* ~~~ Members ~~~ */
+		Map *_Map;
 	};
 }
 
