@@ -20,7 +20,7 @@ namespace TreadLightly {
 		void setWindow(Ogre::RenderWindow* window);
 		void setMouse(OIS::Mouse* mouse);
 		bool frameRenderingQueued(const Ogre::FrameEvent& evt, int xCoord, int yCoord);
-		void mouseMoved(const OIS::MouseEvent& evt);
+		bool mouseMoved(const OIS::MouseEvent& evt);
 		void mousePressed(const OIS::MouseEvent& evt);
 		Ogre::Ray getSelectRay(){
 			//return mCamera->getCameraToViewPortRay(mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);

@@ -69,6 +69,14 @@ namespace TreadLightly {
 
 		mDirection = Ogre::Vector3::ZERO;
 
+		return true;
+	}
+
+	bool CameraController::mouseMoved( const OIS::MouseEvent &evt )
+	{
+		Ogre::Real dist = (mCameraNode->getPosition() - camTarget->_getDerivedPosition()).length();
+		if(dist >10)
+			mCameraNode->translate(Ogre::Vector3(0, 0, -evt.state.Z.rel * 0.0008f * dist), Ogre::Node::TS_LOCAL);
 
 		return true;
 	}

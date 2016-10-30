@@ -141,6 +141,8 @@ namespace TreadLightly {
 	bool TreadLightlyApp::mouseMoved( const OIS::MouseEvent &arg )
 	{
 		
+		_CamControl->mouseMoved(arg);
+
 		if (mTrayMgr->injectMouseMove(arg)) return true;
 
 		return true;
