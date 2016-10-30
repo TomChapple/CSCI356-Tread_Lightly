@@ -81,7 +81,7 @@ namespace TreadLightly {
 		light->setPosition(20.0f, 80.0f, 50.0f);
 
 		/* Create Map */
-		_Map = new Map(mSceneMgr, mSceneMgr->getRootSceneNode(), "testmap.bmp");
+		_Map = new Map(mSceneMgr, mSceneMgr->getRootSceneNode(), "heightmap2.png");
 
 		/* Create some Units */
 		_RedTeam.push_back(new Unit(mSceneMgr, _Map, Ogre::Vector3(-55, 0, 45)));

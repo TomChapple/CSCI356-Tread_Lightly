@@ -34,6 +34,8 @@ namespace TreadLightly {
 			const Ogre::Vector3& to,
 			std::vector<Ogre::Vector3>& store) const;
 
+		Ogre::Vector3 GetRandomPosition() const;
+
 		/* ~~~ Accessors / Mutators ~~~ */
 		Ogre::Real GetGridSize() const;
 

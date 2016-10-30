@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Map.h"
 
+#include <cstdlib>
+
 using namespace TreadLightly::MapUtilities;
 
 namespace TreadLightly {
@@ -54,6 +56,11 @@ namespace TreadLightly {
 		}
 
 		return true;
+	}
+
+	Ogre::Vector3 Map::GetRandomPosition() const {
+
+		return Ogre::Vector3::ZERO;
 	}
 
 	Ogre::Real Map::GetGridSize() const {

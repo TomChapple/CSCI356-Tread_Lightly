@@ -6,7 +6,7 @@
 
 const Ogre::Real TANK_SPEED = 20.0f;
 const Ogre::Real MOVE_TO_THRESHOLD = 5.0f;
-const Ogre::Vector3 TANK_SCALE(0.2, 0.2, 0.2);
+const Ogre::Vector3 TANK_SCALE(0.2f, 0.2f, 0.2f);
 
 namespace TreadLightly {
 
@@ -54,6 +54,8 @@ namespace TreadLightly {
 			else {
 
 				/* Otherwise, find another random place to go */
+				while (_ReachedDestination)
+					MoveTo(_Map->GetRandomPosition());
 			}
 		}
 
