@@ -2,7 +2,7 @@
 * TREAD LIGHTLY
 * Authors: Tom Chapple (23/10)
 * File: main.cpp
-* Last Edited: 23/101/6
+* Last Edited: 23/10/6
 * Purpose: For clarity, we are keeping the mainline separate
 * from the rest of the program.
 */

@@ -22,6 +22,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\src\Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\app\BaseApplication.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="..\..\include\map\MapData.h" />
     <ClInclude Include="..\..\include\map\PathFinder.h" />
     <ClInclude Include="..\..\include\stdafx.h" />
+    <ClInclude Include="..\..\include\Unit.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\ogre.cfg" />

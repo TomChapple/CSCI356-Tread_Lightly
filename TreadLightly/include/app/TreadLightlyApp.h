@@ -19,6 +19,9 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "Map.h"
+#include "Unit.h"
+
+#include <vector>
 
 namespace TreadLightly {
 
@@ -28,11 +31,17 @@ namespace TreadLightly {
 		TreadLightlyApp(void);
 		virtual ~TreadLightlyApp(void);
 
+		/* ~~~ Accessors ~~~ */
+
+		Map *GetMap();
+
 	protected:
 		virtual void createScene(void);
 
 		/* ~~~ Members ~~~ */
 		Map *_Map;
+		std::vector<Unit*> _RedTeam;
+		std::vector<Unit*> _BlueTeam;
 	};
 }
 
