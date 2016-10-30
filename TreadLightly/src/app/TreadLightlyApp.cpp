@@ -38,6 +38,11 @@ namespace TreadLightly {
 			delete _Map;
 		if (!_CamControl)
 			delete _CamControl;
+
+		for (Unit* unit : _RedTeam)
+			delete unit;
+		for(Unit* unit : _BlueTeam)
+			delete unit;
 	}
 	//-------------------------------------------------------------------------------------
 	bool TreadLightlyApp::setup() {
@@ -78,46 +83,8 @@ namespace TreadLightly {
 		/* Create Map */
 		_Map = new Map(mSceneMgr, mSceneMgr->getRootSceneNode(), "testmap.bmp");
 
-		/* Test Pathfinding */
-		std::vector<Ogre::Vector3> FoundPath;
-		_Map->FindPath(Ogre::Vector3(-55, 0, 45), Ogre::Vector3(105, 0, -75), FoundPath);
-		if (!FoundPath.empty()) {
-			Ogre::ManualObject *Path = mSceneMgr->createManualObject();
-			Path->begin("", Ogre::RenderOperation::OT_LINE_STRIP);
-			for (Ogre::Vector3& node : FoundPath) {
-				Path->position(node);
-			}
-			Path->end();
-
-			mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(Path);
-		}
-
-		/* Create the MapData and test iterator */
-		//Ogre::String TestName = "testmap.png";
-		//size_t Temp = sizeof(MapUtilities::Cell);
-		//MapUtilities::Data TestData(TestName);
-		//for (MapUtilities::Data::iterator it = TestData.begin(); it != TestData.end(); it++) {
-		//	Ogre::String Message;
-		//	Message += Ogre::StringConverter::toString(it->GetX()) +
-		//		"," + Ogre::StringConverter::toString(it->GetY()) + ":";
-		//	Message += " Zone - " + Ogre::StringConverter::toString(it->GetZone()) +
-		//		", Team - " + Ogre::StringConverter::toString(it->GetTeam()) +
-		//		", Traverse - " + Ogre::StringConverter::toString(it->GetTraverseType());
-		//	Ogre::LogManager::getSingletonPtr()->logMessage(Message);
-		//}
-
-		///* Test out the PathFinder */
-		//MapUtilities::PathFinder PF(TestData);
-		//std::vector<MapUtilities::Cell> PathResults;
-		//if (PF.FindPath(0, 14, 22, 7, PathResults)) {
-		//	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Found Path!"));
-		//}
-		//else {
-		//	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Could not find path..."));
-		//}
-
-		///* Test out of assets */
-		//MapUtilities::Assets *TestAssets = new MapUtilities::Assets(mSceneMgr, mSceneMgr->getRootSceneNode(), TestData);
+		/* Create some Units */
+		_RedTeam.push_back(new Unit(mSceneMgr, _Map, Ogre::Vector3(-55, 0, 45)));
 	}
 
 	
@@ -134,6 +101,11 @@ namespace TreadLightly {
 
 		mTrayMgr->frameRenderingQueued(evt);
 		_CamControl->frameRenderingQueued(evt, mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
+
+		for (Unit *unit : _RedTeam)
+			unit->update(evt.timeSinceLastFrame);
+		for (Unit *unit : _BlueTeam)
+			unit->update(evt.timeSinceLastFrame);
 
 		return true;
 	}

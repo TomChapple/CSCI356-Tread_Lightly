@@ -2,6 +2,8 @@
 
 #include "Unit.h"
 
+#include <cstdlib>
+
 const Ogre::Real TANK_SPEED = 20.0f;
 const Ogre::Real MOVE_TO_THRESHOLD = 5.0f;
 const Ogre::Vector3 TANK_SCALE(0.2, 0.2, 0.2);
@@ -48,6 +50,10 @@ namespace TreadLightly {
 				_CurrDest = _FollowPath.front();
 				_FollowPath.erase(_FollowPath.begin());
 				_ReachedDestination = false;
+			}
+			else {
+
+				/* Otherwise, find another random place to go */
 			}
 		}
 

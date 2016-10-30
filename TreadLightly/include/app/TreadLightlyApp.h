@@ -20,6 +20,7 @@ This source file is part of the
 #include "BaseApplication.h"
 #include "Map.h"
 #include "CameraController.h"
+#include "Unit.h"
 
 namespace TreadLightly {
 
@@ -38,6 +39,8 @@ namespace TreadLightly {
 		/* ~~~ Members ~~~ */
 		Map *_Map;
 		CameraController * _CamControl;
+		std::vector<Unit*> _RedTeam;
+		std::vector<Unit*> _BlueTeam;
 	};
 }
 
