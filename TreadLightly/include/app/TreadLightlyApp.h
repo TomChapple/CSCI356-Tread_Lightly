@@ -19,9 +19,7 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "Map.h"
-#include "Unit.h"
-
-#include <vector>
+#include "CameraController.h"
 
 namespace TreadLightly {
 
@@ -30,18 +28,16 @@ namespace TreadLightly {
 	public:
 		TreadLightlyApp(void);
 		virtual ~TreadLightlyApp(void);
-
-		/* ~~~ Accessors ~~~ */
-
-		Map *GetMap();
+		bool setup();
+		bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+		bool mouseMoved(const OIS::MouseEvent &arg);
 
 	protected:
 		virtual void createScene(void);
-
+		
 		/* ~~~ Members ~~~ */
 		Map *_Map;
-		std::vector<Unit*> _RedTeam;
-		std::vector<Unit*> _BlueTeam;
+		CameraController * _CamControl;
 	};
 }
 

@@ -22,7 +22,6 @@ This source file is part of the
 #include <OgreManualObject.h>
 
 #include "Map.h"
-#include "Unit.h"
 
 namespace TreadLightly {
 
@@ -30,23 +29,37 @@ namespace TreadLightly {
 	TreadLightlyApp::TreadLightlyApp(void)
 	{
 		_Map = NULL;
+		_CamControl = NULL;
 	}
 	//-------------------------------------------------------------------------------------
 	TreadLightlyApp::~TreadLightlyApp(void)
 	{
 		if (!_Map)
 			delete _Map;
+		if (!_CamControl)
+			delete _CamControl;
+	}
+	//-------------------------------------------------------------------------------------
+	bool TreadLightlyApp::setup() {
+		BaseApplication::setup();
 
-		for (Unit *unit : _RedTeam)
-			delete unit;
-		for (Unit *unit : _BlueTeam)
-			delete unit;
+		mTrayMgr->showCursor();
+
+		//Position mouse in middle of screen so it doesn't start moving camera
+		OIS::MouseState &mutableMouseState = const_cast<OIS::MouseState &>(mMouse->getMouseState());
+		mutableMouseState.X.abs = mWindow->getWidth()/2;
+		mutableMouseState.Y.abs = mWindow->getHeight()/2;
+
+		return true;
 	}
 
 	//-------------------------------------------------------------------------------------
 	void TreadLightlyApp::createScene(void)
 	{
 		// create your scene here :)
+
+		// Set up camera
+		_CamControl = new CameraController(mCamera, mSceneMgr, mWindow, mMouse);
 
 		// Set the scene's ambient light
 		mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
@@ -65,12 +78,8 @@ namespace TreadLightly {
 		/* Create Map */
 		_Map = new Map(mSceneMgr, mSceneMgr->getRootSceneNode(), "testmap.bmp");
 
-		/* Create some units */
-		_RedTeam.push_back(new Unit(mSceneMgr, _Map, Ogre::Vector3(-55, 0, 45)));
-		_RedTeam.push_back(new Unit(mSceneMgr, _Map, Ogre::Vector3(105, 0, -75)));
-
 		/* Test Pathfinding */
-		/*std::vector<Ogre::Vector3> FoundPath;
+		std::vector<Ogre::Vector3> FoundPath;
 		_Map->FindPath(Ogre::Vector3(-55, 0, 45), Ogre::Vector3(105, 0, -75), FoundPath);
 		if (!FoundPath.empty()) {
 			Ogre::ManualObject *Path = mSceneMgr->createManualObject();
@@ -81,11 +90,62 @@ namespace TreadLightly {
 			Path->end();
 
 			mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(Path);
-		}*/
+		}
+
+		/* Create the MapData and test iterator */
+		//Ogre::String TestName = "testmap.png";
+		//size_t Temp = sizeof(MapUtilities::Cell);
+		//MapUtilities::Data TestData(TestName);
+		//for (MapUtilities::Data::iterator it = TestData.begin(); it != TestData.end(); it++) {
+		//	Ogre::String Message;
+		//	Message += Ogre::StringConverter::toString(it->GetX()) +
+		//		"," + Ogre::StringConverter::toString(it->GetY()) + ":";
+		//	Message += " Zone - " + Ogre::StringConverter::toString(it->GetZone()) +
+		//		", Team - " + Ogre::StringConverter::toString(it->GetTeam()) +
+		//		", Traverse - " + Ogre::StringConverter::toString(it->GetTraverseType());
+		//	Ogre::LogManager::getSingletonPtr()->logMessage(Message);
+		//}
+
+		///* Test out the PathFinder */
+		//MapUtilities::PathFinder PF(TestData);
+		//std::vector<MapUtilities::Cell> PathResults;
+		//if (PF.FindPath(0, 14, 22, 7, PathResults)) {
+		//	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Found Path!"));
+		//}
+		//else {
+		//	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::String("Could not find path..."));
+		//}
+
+		///* Test out of assets */
+		//MapUtilities::Assets *TestAssets = new MapUtilities::Assets(mSceneMgr, mSceneMgr->getRootSceneNode(), TestData);
 	}
 
-	Map *TreadLightlyApp::GetMap() {
-		return _Map;
+	
+	bool TreadLightlyApp::frameRenderingQueued(const Ogre::FrameEvent& evt) {
+		
+		if(mWindow->isClosed())
+			return false;
+ 
+		if(mShutDown)
+			return false;
+
+		mKeyboard->capture();
+		mMouse->capture();
+
+		mTrayMgr->frameRenderingQueued(evt);
+		_CamControl->frameRenderingQueued(evt, mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
+
+		return true;
+	}
+
+	bool TreadLightlyApp::mouseMoved( const OIS::MouseEvent &arg )
+	{
+		
+		_CamControl->mouseMoved(arg);
+
+		if (mTrayMgr->injectMouseMove(arg)) return true;
+
+		return true;
 	}
 
 }

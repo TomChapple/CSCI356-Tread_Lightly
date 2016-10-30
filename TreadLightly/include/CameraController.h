@@ -8,24 +8,33 @@
 
 
 #include "stdafx.h"
+#include "Ogre.h"
 
 namespace TreadLightly {
 	class CameraController {
 	public:
 		CameraController(Ogre::Camera* cam);
-		virtual ~CameraController();
-		virtual void Ogre::Camera* getCamera();
-		virtual void Ogre::SceneNode* getCameraNode();
-		virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-		virtual void mouseMoved(const OIS::MouseEvent& evt);
-		virtual void mousePressed(const (OIS::MouseEvent& evt);
-		virtual Ogre::Ray getSelectRay(){
-			return mCamera->getCameraToViewPortRay(mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
+		CameraController(Ogre::Camera* cam, Ogre::SceneManager* mSceneMgr, Ogre::RenderWindow* window, OIS::Mouse* mouse);
+		virtual ~CameraController(void);
+		void setTarget(Ogre::SceneNode* target);
+		void setWindow(Ogre::RenderWindow* window);
+		void setMouse(OIS::Mouse* mouse);
+		bool frameRenderingQueued(const Ogre::FrameEvent& evt, int xCoord, int yCoord);
+		bool mouseMoved(const OIS::MouseEvent& evt);
+		void mousePressed(const OIS::MouseEvent& evt);
+		Ogre::Ray getSelectRay(){
+			//return mCamera->getCameraToViewPortRay(mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
 		}
 	private:	
+		Ogre::RenderWindow* mWindow;
+		OIS::Mouse* mMouse;
+		OIS::Keyboard* mKeyboard;
+
 		Ogre::Camera * mCamera;
 		Ogre::SceneNode * mCameraNode;
+		Ogre::SceneNode* camTarget;
 
-		OIS::Mouse * mMouse;
-	}
+		Ogre::Real mMove;
+		Ogre::Vector3 mDirection;
+	};
 }

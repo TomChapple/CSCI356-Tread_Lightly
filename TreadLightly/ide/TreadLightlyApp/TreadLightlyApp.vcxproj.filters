@@ -54,7 +54,11 @@
     <ClCompile Include="..\..\src\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\src\Unit.cpp">
+=======
+    <ClCompile Include="CameraController.cpp">
+>>>>>>> c88e5dd5fb79922e1282b6ea4868f9ebc9ca80f9
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

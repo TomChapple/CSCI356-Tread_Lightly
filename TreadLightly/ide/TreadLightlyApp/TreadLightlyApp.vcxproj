@@ -22,7 +22,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\..\src\Unit.cpp" />
+=======
+    <ClCompile Include="CameraController.cpp" />
+>>>>>>> c88e5dd5fb79922e1282b6ea4868f9ebc9ca80f9
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\app\BaseApplication.h" />
@@ -87,7 +91,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OGRE_HOME)\Ogre\lib\$(Configuration);$(OGRE_HOME)\Ogre\boost\lib;$(OGRE_HOME)\Bullet\lib\$(Configuration);$(OGRE_HOME)\irrKlang\lib\win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$OGRE_HOME)\Ogre\bin\;$(OGRE_HOME)\Ogre\lib\$(Configuration);$(OGRE_HOME)\Ogre\boost\lib;$(OGRE_HOME)\Bullet\lib\$(Configuration);$(OGRE_HOME)\irrKlang\lib\win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;OgreOverlay_d.lib;BulletCollision_debug.lib;BulletDynamics_debug.lib;LinearMath_debug.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -106,7 +110,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(OGRE_HOME)\Ogre\lib\$(Configuration);$(OGRE_HOME)\Ogre\boost\lib;$(OGRE_HOME)\Bullet\lib\$(Configuration);$(OGRE_HOME)\irrKlang\lib\win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;OIS.lib;OgreOverlay.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;OgreOverlay.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;irrKlang.lib;%(AdditionalDependencies);OgreMain_d.lib;OIS_d.lib;OgreOverlay_d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
